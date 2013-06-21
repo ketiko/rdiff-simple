@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'rdiff-simple'
+require 'rdiff_simple'
 
 puts "Usage: rdiff-simple"
