@@ -2,6 +2,6 @@ require 'spec_helper'
 
 describe "rdiff-simple" do
   it "should be defined" do
-     defined?(RdiffSimple)
+     defined?(RdiffSimple).must_equal 'constant'
   end
 end

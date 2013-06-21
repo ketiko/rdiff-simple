@@ -1,4 +1,4 @@
-require "rdiff-simple/version"
+require "rdiff_simple/version"
 
 module RdiffSimple
 
