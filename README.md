@@ -6,7 +6,6 @@ A simpler way to backup with rdiff-backup
 * [Source Code](http://github.com/ketiko/rdiff-simple)
 * [API documentation](http://rubydoc.info/github/ketiko/rdiff-simple/master)
 * [Rubygem](http://rubygems.org/gems/rdiff-simple)
-* [Continuous Integration](http://travis-ci.org/ketiko/rdiff-simple)
 
 ## Installation
 
