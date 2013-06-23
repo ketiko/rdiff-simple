@@ -1,5 +1,30 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
+require 'ostruct'
 require 'rdiff_simple'
 
-puts "Usage: rdiff-simple"
+options = OpenStruct.new
+OptionParser.new do |opts|
+  opts.banner = "Usage: rdiff-simple [options] source destination"
+
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    options.verbose = v
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
+  opts.on_tail("--v", "--version", "Show version") do
+    puts "rdiff-simple version: #{RdiffSimple::VERSION}"
+    exit
+  end
+end.parse!
+
+options.source = ARGV[0]
+raise ArgumentError, "source is required" unless options.source
+
+options.destination = ARGV[1]
+raise ArgumentError, "destination is required" unless options.destination

@@ -6,6 +6,7 @@ require 'rake/testtask'
 task :ci => [:test]
 
 Rake::TestTask.new do |test|
+  test.libs << "bin"
   test.libs << "lib"
   test.libs << "spec"
   test.pattern = 'spec/**/*_spec.rb'
