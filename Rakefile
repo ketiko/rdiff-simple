@@ -2,7 +2,6 @@ require 'rubygems'
 require 'bundler/setup'
 require 'bundler/gem_tasks'
 require 'rake/testtask'
-require 'yard'
 
 task :ci => [:test]
 
@@ -11,8 +10,5 @@ Rake::TestTask.new do |test|
   test.libs << "spec"
   test.pattern = 'spec/**/*_spec.rb'
 end
-
-YARD::Rake::YardocTask.new
-task :docs => :yard
 
 task :default => :ci
