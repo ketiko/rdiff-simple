@@ -5,6 +5,7 @@ require 'ostruct'
 require 'rdiff_simple'
 
 options = OpenStruct.new
+
 OptionParser.new do |opts|
   opts.banner = "Usage: rdiff-simple [options] source destination"
 
@@ -18,7 +19,7 @@ OptionParser.new do |opts|
   end
 
   opts.on_tail("--v", "--version", "Show version") do
-    puts "rdiff-simple version: #{RdiffSimple::VERSION}"
+    puts "rdiff-simple #{RdiffSimple::VERSION}"
     exit
   end
 end.parse!
@@ -28,3 +29,6 @@ raise ArgumentError, "source is required" unless options.source
 
 options.destination = ARGV[1]
 raise ArgumentError, "destination is required" unless options.destination
+
+rdiff = RdiffSimple::RdiffBackup.new
+rdiff.process(options)
