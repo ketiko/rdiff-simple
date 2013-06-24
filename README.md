@@ -1,4 +1,4 @@
-rdiff-simple [![Gem Version](https://badge.fury.io/rb/rdiff-simple.png)](http://badge.fury.io/rb/rdiff-simple) [![Build Status](https://travis-ci.org/ketiko/rdiff-simple.png?branch=master)](https://travis-ci.org/ketiko/rdiff-simple) [![Coverage Status](https://coveralls.io/repos/ketiko/rdiff-simple/badge.png)](https://coveralls.io/r/ketiko/rdiff-simple) [![Code Climate](https://codeclimate.com/github/ketiko/rdiff-simple.png)](https://codeclimate.com/github/ketiko/rdiff-simple)
+rdiff-simple [![Gem Version](https://badge.fury.io/rb/rdiff-simple.png)](http://badge.fury.io/rb/rdiff-simple) [![Build Status](https://travis-ci.org/ketiko/rdiff-simple.png?branch=master)](https://travis-ci.org/ketiko/rdiff-simple) [![Dependency Status](https://gemnasium.com/ketiko/rdiff-simple.png)](https://gemnasium.com/ketiko/rdiff-simple) [![Coverage Status](https://coveralls.io/repos/ketiko/rdiff-simple/badge.png)](https://coveralls.io/r/ketiko/rdiff-simple) [![Code Climate](https://codeclimate.com/github/ketiko/rdiff-simple.png)](https://codeclimate.com/github/ketiko/rdiff-simple)
 ============
 
 A simpler way to backup with rdiff-backup
