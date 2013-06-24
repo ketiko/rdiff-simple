@@ -1,34 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'optparse'
-require 'ostruct'
-require 'rdiff_simple'
+# Trap interrupts to quit cleanly. See
+# https://twitter.com/mitchellh/status/283014103189053442
+Signal.trap("INT") { exit 1 }
 
-options = OpenStruct.new
+require 'rdiff_simple/cli'
 
-OptionParser.new do |opts|
-  opts.banner = "Usage: rdiff-simple [options] source destination"
-
-  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
-    options.verbose = v
-  end
-
-  opts.on_tail("-h", "--help", "Show this message") do
-    puts opts
-    exit
-  end
-
-  opts.on_tail("--version", "Show version") do
-    puts "rdiff-simple #{RdiffSimple::VERSION}"
-    exit
-  end
-end.parse!
-
-options.source = ARGV[0]
-raise ArgumentError, "source is required" unless options.source
-
-options.destination = ARGV[1]
-raise ArgumentError, "destination is required" unless options.destination
-
-rdiff = RdiffSimple::RdiffBackup.new
-rdiff.process(options)
+RdiffSimple::CLI.start
