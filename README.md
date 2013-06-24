@@ -21,7 +21,7 @@ $ gem install rdiff-simple
 $ rdiff-simple
 
 ## License
--------
+
 Released under the MIT License.  See the [LICENSE][] file for further details.
 
 [license]: LICENSE.txt
