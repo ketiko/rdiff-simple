@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version          = RdiffSimple::VERSION
   spec.authors          = ["Ryan Hansen"]
   spec.email            = ["ketiko@gmail.com"]
-  spec.description      = %q{A simplier way to backup with rdiff-backup}
-  spec.summary          = %q{Simplified backups with rdiff-backup}
+  spec.description      = %q{A wrapper around the rdiff-backup executable}
+  spec.summary          = %q{A simple wrapper around rdiff-backup}
   spec.homepage         = "http://github.com/ketiko/rdiff-simple"
   spec.license          = "MIT"
 
@@ -25,6 +25,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 2"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "coveralls"
-
-  spec.add_dependency "thor"
 end

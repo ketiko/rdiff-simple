@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/ketiko/rdiff-simple.png)](https://codeclimate.com/github/ketiko/rdiff-simple)
 [![Coverage Status](https://coveralls.io/repos/ketiko/rdiff-simple/badge.png)](https://coveralls.io/r/ketiko/rdiff-simple)
 
-A simpler way to backup with rdiff-backup
+A simple wrapper around rdiff-backup
 
 * [Source Code](http://github.com/ketiko/rdiff-simple)
 * [API documentation](http://rubydoc.info/github/ketiko/rdiff-simple/master)
