@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version          = RdiffSimple::VERSION
   spec.authors          = ["Ryan Hansen"]
   spec.email            = ["ketiko@gmail.com"]
-  spec.description      = %q{A wrapper around the rdiff-backup executable}
-  spec.summary          = %q{A simple wrapper around rdiff-backup}
+  spec.description      = %q{A simple wrapper around rdiff-backup}
+  spec.summary          = %q{A wrapper around the rdiff-backup executable}
   spec.homepage         = "http://github.com/ketiko/rdiff-simple"
   spec.license          = "MIT"
 
