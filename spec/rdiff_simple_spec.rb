@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe RdiffSimple do
   describe '#execute' do
+    before(:each) do
+      mock_rdiff_installed(true)
+    end
+
     context 'when no arguments are given' do
       it 'should return false' do
         subject.execute.should be_false
