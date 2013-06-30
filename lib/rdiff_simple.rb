@@ -1,8 +1,11 @@
 require "rdiff_simple/version"
 
 module RdiffSimple
+
+  class NotInstalledError < Exception; end
+
   def self.execute(*args)
-    raise 'rdiff-backup not installed' unless installed?
+    raise NotInstalledError, 'rdiff-backup not installed' unless installed?
 
     system('rdiff-backup', *args)
   end

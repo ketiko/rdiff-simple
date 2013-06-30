@@ -13,16 +13,19 @@ describe RdiffSimple do
         subject.execute('--version').should be_true
       end
     end
+
+    context 'when rdiff-backup is not installed' do
+      before(:each) do
+        mock_rdiff_installed(false)
+      end
+
+      it 'should be false' do
+        expect { subject.execute('--version') }.should raise_error(RdiffSimple::NotInstalledError)
+      end
+    end
   end
 
   describe '#installed?' do
-    def mock_rdiff_installed(value)
-      subject
-      .should_receive(:system)
-      .with('which rdiff-backup')
-      .and_return(value)
-    end
-
     context 'when rdiff-backup is installed' do
       before(:each) do
         mock_rdiff_installed(true)
@@ -42,5 +45,12 @@ describe RdiffSimple do
         subject.installed?.should be_false
       end
     end
+  end
+
+  def mock_rdiff_installed(value)
+    subject
+    .should_receive(:system)
+    .with('which rdiff-backup')
+    .and_return(value)
   end
 end
