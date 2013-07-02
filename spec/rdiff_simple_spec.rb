@@ -3,25 +3,17 @@ require 'spec_helper'
 describe RdiffSimple do
   describe '#execute' do
     context 'when rdiff-backup is installed' do
-      before do
-        mock_rdiff_installed(true)
-      end
+      before { mock_rdiff_installed :yes }
 
       context 'when no arguments are given' do
-        before do
-          RdiffSimple.stub(:system).with('rdiff-backup').and_return(false)
-        end
-
+        before { mock_rdiff_command :failed }
         subject { RdiffSimple.execute }
 
         it { should be_false }
       end
 
       context 'when arguments are given' do
-        before do
-          RdiffSimple.stub(:system).with('rdiff-backup', '--version').and_return(true)
-        end
-
+        before { mock_rdiff_command '--version', :succeeded }
         subject { RdiffSimple.execute('--version') }
 
         it { should be_true }
@@ -29,9 +21,7 @@ describe RdiffSimple do
     end
 
     context 'when rdiff-backup is not installed' do
-      before do
-        mock_rdiff_installed(false)
-      end
+      before { mock_rdiff_installed false }
 
       it 'should raise an exception' do
         expect { subject.execute('--version') }.to raise_error(RdiffSimple::NotInstalledError)
@@ -41,24 +31,15 @@ describe RdiffSimple do
 
   describe '#installed?' do
     context 'when rdiff-backup is installed' do
-      before do
-        mock_rdiff_installed(true)
-      end
+      before { mock_rdiff_installed :yes }
 
       it { should be_installed }
     end
 
     context 'when rdiff-backup is not installed' do
-      before do
-        mock_rdiff_installed(false)
-      end
+      before { mock_rdiff_installed :no }
 
       it { should_not be_installed }
     end
-
-  end
-
-  def mock_rdiff_installed(value)
-    RdiffSimple.stub(:system).with('which rdiff-backup').and_return(value)
   end
 end
