@@ -4,12 +4,12 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem "bundler", "~> 1.3"
-  gem "coveralls"
   gem "rake"
   gem "rspec", "~> 2"
+  gem "coveralls"
 end
 
 group :development do
+  gem "bundler", "~> 1.3"
   gem "guard-rspec"
 end
