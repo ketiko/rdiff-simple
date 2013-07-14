@@ -7,7 +7,7 @@ describe RdiffSimple do
 
       context 'when no arguments are given' do
         before { mock_rdiff_command '', :failed }
-        subject { RdiffSimple.execute }
+        subject { RdiffSimple.execute('') }
 
         it { should be_false }
       end

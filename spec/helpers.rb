@@ -7,9 +7,6 @@ module Helpers
   def mock_rdiff_command(command, value)
     result = value == :succeeded
 
-    commands = [ 'rdiff-backup' ]
-    commands << command unless command.empty?
-
-    RdiffSimple.stub(:system).with(*commands).and_return(result)
+    RdiffSimple.stub(:system).with("rdiff-backup #{command}").and_return(result)
   end
 end
