@@ -7,7 +7,7 @@ module RdiffSimple
   def self.execute(*args)
     raise NotInstalledError, 'rdiff-backup not installed' unless installed?
 
-    system('rdiff-backup', *args)
+    system('nice rdiff-backup', *args)
   end
 
   def self.installed?
