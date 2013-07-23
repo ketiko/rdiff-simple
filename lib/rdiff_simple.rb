@@ -1,16 +1,6 @@
-require "rdiff_simple/version"
+require 'rdiff_simple/version'
+require 'rdiff_simple/exit_codes'
+require 'rdiff_simple/errors'
+require 'rdiff_simple/commands'
+require 'rdiff_simple/rdiff_backup'
 
-module RdiffSimple
-
-  class NotInstalledError < Exception; end
-
-  def self.execute(args)
-    raise NotInstalledError, 'rdiff-backup not installed' unless installed?
-
-    system("rdiff-backup #{args}")
-  end
-
-  def self.installed?
-    system('which rdiff-backup')
-  end
-end
