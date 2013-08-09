@@ -1,6 +1,6 @@
 module RdiffSimple
   COMMANDS = {
     rdiff: 'rdiff-backup',
-    installed: "which #{:rdiff}",
+    installed: "which rdiff-backup",
   }
 end
