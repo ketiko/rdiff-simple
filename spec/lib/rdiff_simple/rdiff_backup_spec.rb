@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe RdiffSimple::RdiffBackup do
+  let(:backup) { RdiffSimple::RdiffBackup.new }
+
   describe '.execute' do
     context 'when rdiff-backup is installed' do
       before do
@@ -12,7 +14,7 @@ describe RdiffSimple::RdiffBackup do
           Open3.stub(:capture2e).with(RdiffSimple::COMMANDS[:rdiff]).and_return(['', 1])
         end
 
-        subject { RdiffSimple::RdiffBackup.execute('') }
+        subject { backup.execute('') }
 
         it { should be_false }
       end
@@ -22,7 +24,7 @@ describe RdiffSimple::RdiffBackup do
           Open3.stub(:capture2e).with("#{RdiffSimple::COMMANDS[:rdiff]} --version").and_return(['', 0])
         end
 
-        subject { RdiffSimple::RdiffBackup.execute('--version') }
+        subject { backup.execute('--version') }
 
         it { should be_true }
       end
