@@ -1,18 +1,20 @@
 require 'open3'
 
 module RdiffSimple
-  module RdiffBackup
-    def self.execute(*args)
+  class RdiffBackup
+    attr_reader :output_log
+
+    def execute(*args)
       raise NotInstalledError, 'rdiff-backup not installed' unless installed?
 
       command = ['rdiff-backup', args].flatten!.compact.join(' ').strip
 
-      output, status = Open3.capture2e(command)
-      STDOUT.write output
+      @output_log, status = Open3.capture2e(command)
       status == EXIT_CODE[:success]
     end
 
-    def self.installed?
+    private
+    def installed?
       output, status = Open3.capture2e(COMMANDS[:installed])
       status == EXIT_CODE[:success]
     end
