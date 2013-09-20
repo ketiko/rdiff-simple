@@ -1,5 +1,4 @@
-require 'rubygems'
-require 'bundler/setup'
+Bundler.require(:development)
 
 if RUBY_VERSION > "1.9"
   if ENV['TRAVIS']

@@ -1,61 +1,29 @@
 require 'spec_helper'
 
 describe RdiffSimple::RdiffBackup do
-  let(:backup) { RdiffSimple::RdiffBackup.new }
+  let(:logger) do
+    log = double('logger')
 
-  describe '.execute' do
-    context 'when rdiff-backup is installed' do
-      before do
-        Open3.stub(:capture2e).with(RdiffSimple::COMMANDS[:installed]).and_return(['', 0])
-      end
-
-      context 'when no arguments are given' do
-        before do
-          Open3.stub(:capture2e).with(RdiffSimple::COMMANDS[:rdiff]).and_return(['', 1])
-        end
-
-        subject { backup.execute('') }
-
-        it { should be_false }
-      end
-
-      context 'when arguments are given' do
-        before do
-          Open3.stub(:capture2e).with("#{RdiffSimple::COMMANDS[:rdiff]} --version").and_return(['', 0])
-        end
-
-        subject { backup.execute('--version') }
-
-        it { should be_true }
-      end
+    [:info, :error].each do |type|
+      allow(log).to receive(type).with(any_args())
     end
 
-    context 'when rdiff-backup is not installed' do
-      before do
-        Open3.stub(:capture2e).with(RdiffSimple::COMMANDS[:installed]).and_return(['', 1])
-      end
-
-      it 'should raise an exception' do
-        expect { subject.execute('--version') }.to raise_error(RdiffSimple::NotInstalledError)
-      end
-    end
+    log
   end
 
-  describe '.installed?' do
-    context 'when rdiff-backup is installed' do
-      before do
-        Open3.stub(:capture2e).with(RdiffSimple::COMMANDS[:installed]).and_return(['', 0])
-      end
+  let(:exit_code) { Random.rand(100) }
 
-      it { should be_installed }
+  subject { RdiffSimple::RdiffBackup.new(logger) }
+
+  describe '#backup' do
+    before do
+      status =  double('status')
+      status.stub(:exitstatus).and_return(exit_code)
+      Open3.stub(:capture3).with(any_args()).and_return(['', '', status])
     end
 
-    context 'when rdiff-backup is not installed' do
-      before do
-        Open3.stub(:capture2e).with(RdiffSimple::COMMANDS[:installed]).and_return(['', 1])
-      end
-
-      it { should_not be_installed }
+    it 'returns the exit code' do
+      expect(subject.backup('', '')).to eq exit_code
     end
   end
 end

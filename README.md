@@ -18,7 +18,7 @@ $ gem install rdiff-simple
 
 ## Usage
 
-$ rdiff-simple
+TODO
 
 ## License
 
