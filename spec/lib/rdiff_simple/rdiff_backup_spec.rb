@@ -23,7 +23,7 @@ describe RdiffSimple::RdiffBackup do
     end
 
     it 'returns the exit code' do
-      expect(subject.backup('', '')).to eq exit_code
+      expect(subject.backup('~/Documents', '~/Test', '--verbosity 5')).to eq exit_code
     end
   end
 end
