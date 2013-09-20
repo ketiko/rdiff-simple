@@ -1,16 +1,15 @@
-require 'logger'
-require 'open3'
 
 module RdiffSimple
   class RdiffBackup
-    def initialize(logger = Logger.new(STDOUT))
+    def initialize(logger = Logger.new(STDOUT), open3 = Open3)
       @logger = logger
+      @open3 = open3
     end
 
-    def backup(source, destination, options = [])
-      command = ['rdiff-backup', *options, source, destination].flatten.compact.join(' ').strip
+    def execute(*args)
+      command_arguments = OptionsParser.parse(*args)
 
-      out, err, result = Open3.capture3(command)
+      out, err, result = @open3.capture3("rdiff-backup #{command_arguments}".strip)
 
       @logger.info(out) if out.length > 0
       @logger.error(err) if err.length > 0

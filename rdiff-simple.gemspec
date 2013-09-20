@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = [ "LICENSE.txt", "README.md" ]
   spec.rdoc_options     = [ "--charset=UTF-8" ]
 
+  spec.add_dependency "activesupport"
+
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 2"
   spec.add_development_dependency "coveralls"

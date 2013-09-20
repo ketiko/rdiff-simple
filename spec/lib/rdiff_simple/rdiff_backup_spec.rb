@@ -1,29 +1,20 @@
 require 'spec_helper'
 
 describe RdiffSimple::RdiffBackup do
-  let(:logger) do
-    log = double('logger')
+  let(:args) { 'rdiff-backup --exclude-other-filesystems --verbosity 5 --exclude *.png ~/Documents ~/Test' }
+  let(:status) { double('status', exitstatus: Random.rand(100)) }
+  let(:open3) { double('open3') }
+  let(:backup) { RdiffSimple::RdiffBackup.new(double('logger'), open3) }
 
-    [:info, :error].each do |type|
-      allow(log).to receive(type).with(any_args())
-    end
-
-    log
-  end
-
-  let(:exit_code) { Random.rand(100) }
-
-  subject { RdiffSimple::RdiffBackup.new(logger) }
+  subject { backup.execute('~/Documents', '~/Test', :exclude_other_filesystems, verbosity: 5, exclude: '*.png') }
 
   describe '#backup' do
     before do
-      status =  double('status')
-      status.stub(:exitstatus).and_return(exit_code)
-      Open3.stub(:capture3).with(any_args()).and_return(['', '', status])
+      expect(open3).to receive(:capture3).with(args) { ['', '', status] }
     end
 
     it 'returns the exit code' do
-      expect(subject.backup('~/Documents', '~/Test', '--verbosity 5')).to eq exit_code
+      expect(subject).to eq status.exitstatus
     end
   end
 end
