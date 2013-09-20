@@ -14,7 +14,9 @@ A simple wrapper around rdiff-backup
 
 ## Installation
 
+```bash
 $ gem install rdiff-simple
+```
 
 ## Quick Start
 
