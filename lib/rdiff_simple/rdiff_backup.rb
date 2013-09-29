@@ -1,4 +1,3 @@
-
 module RdiffSimple
   class RdiffBackup
     def initialize(logger = Logger.new(STDOUT), open3 = Open3)
