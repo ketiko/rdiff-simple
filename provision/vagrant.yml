@@ -1,0 +1,26 @@
+---
+
+- hosts:  vagrant
+  user:   vagrant
+  tasks:
+  - name: install common packages
+    apt:  pkg={{ item }}
+          state=present
+          update-cache=yes
+          cache_valid_time=2592000
+    with_items:
+      - build-essential
+      - git
+      - rdiff-backup
+      - ruby1.9.3
+    sudo: yes
+
+  - name: gem install bundler
+    command:  gem install bundler
+              creates=/usr/local/bin/bundle
+    sudo: yes
+
+  - name: bundle install
+    command:  bundle install --binstubs
+              chdir=/vagrant
+              creates=/vagrant/bin/rspec
