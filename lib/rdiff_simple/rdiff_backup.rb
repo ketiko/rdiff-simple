@@ -5,15 +5,27 @@ module RdiffSimple
       @open3 = open3
     end
 
-    def execute(*args)
-      command_arguments = OptionsParser.parse(*args)
+    def backup(source, destination, *args)
+      command_arguments = OptionsParser.parse *args
+      run_command "#{command_arguments.strip} #{source} #{destination}"
+    end
 
-      out, err, result = @open3.capture3("rdiff-backup #{command_arguments}".strip)
+    def verify(destination)
+      verify_at_time destination, "now"
+    end
 
-      @logger.info(out) if out.length > 0
-      @logger.error(err) if err.length > 0
+    def verify_at_time(destination, time)
+      run_command "--verify-at-time #{time} #{destination}"
+    end
 
-      return result.exitstatus
+    private
+    def run_command(command)
+      output, error, result = @open3.capture3 "rdiff-backup #{command}"
+
+      @logger.info output if output.length > 0
+      @logger.error error if error.length > 0
+
+      result.exitstatus
     end
   end
 end
