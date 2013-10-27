@@ -1,6 +1,6 @@
 ---
 
-- hosts:  vagrant
+- hosts:  default
   user:   vagrant
   tasks:
   - name: install common packages
@@ -21,6 +21,11 @@
     sudo: yes
 
   - name: bundle install
-    command:  bundle install --binstubs
+    command:  bundle install
+              chdir=/vagrant
+              creates=/vagrant/.bundle
+
+  - name: bundle binstub rspec
+    command:  bundle binstub rspec-core
               chdir=/vagrant
               creates=/vagrant/bin/rspec
