@@ -4,17 +4,15 @@ describe RdiffSimple::RdiffBackup do
   let(:source) { '~/Documents' }
   let(:destination) { '~/Test' }
   let(:status) { double('status', exitstatus: Random.rand(100)) }
-  let(:open3) { double('open3') }
   let(:file) { StringIO.new }
   let(:rdiff) do
     RdiffSimple::RdiffBackup.new do |r|
       r.logger = Logger.new file
-      r.open3 = open3
     end
   end
 
   before do
-    open3.stub(:capture3).with(args) { ['output', 'error', status] }
+    Open3.stub(:capture3).with(args) { ['output', 'error', status] }
   end
 
   shared_examples "a command" do

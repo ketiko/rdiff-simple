@@ -1,11 +1,10 @@
 module RdiffSimple
   class RdiffBackup
-    attr_accessor :logger, :open3
+    attr_accessor :logger
 
     def initialize
       yield self if block_given?
 
-      @open3  ||= Open3
       @logger ||= Logger.new(STDOUT)
     end
 
@@ -24,7 +23,7 @@ module RdiffSimple
 
     private
     def execute(command)
-      output, error, result = open3.capture3 "rdiff-backup #{command}"
+      output, error, result = Open3.capture3 "rdiff-backup #{command}"
 
       logger.info output unless output.empty?
       logger.error error unless error.empty?
