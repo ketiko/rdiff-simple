@@ -1,13 +1,17 @@
 module RdiffSimple
   class RdiffBackup
-    def initialize(logger = Logger.new(STDOUT), open3 = Open3)
-      @logger = logger
-      @open3 = open3
+    attr_accessor :logger, :open3
+
+    def initialize
+      yield self if block_given?
+
+      @open3  ||= Open3
+      @logger ||= Logger.new(STDOUT)
     end
 
     def backup(source, destination, *args)
-      command_arguments = OptionsParser.parse *args
-      run_command "#{command_arguments.strip} #{source} #{destination}"
+      command_args = OptionsParser.parse *args
+      execute "#{command_args} #{source} #{destination}"
     end
 
     def verify(destination)
@@ -15,15 +19,15 @@ module RdiffSimple
     end
 
     def verify_at_time(destination, time)
-      run_command "--verify-at-time #{time} #{destination}"
+      execute "--verify-at-time #{time} #{destination}"
     end
 
     private
-    def run_command(command)
-      output, error, result = @open3.capture3 "rdiff-backup #{command}"
+    def execute(command)
+      output, error, result = open3.capture3 "rdiff-backup #{command}"
 
-      @logger.info output if output.length > 0
-      @logger.error error if error.length > 0
+      logger.info output unless output.empty?
+      logger.error error unless error.empty?
 
       result.exitstatus
     end

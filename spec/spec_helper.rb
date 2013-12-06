@@ -1,13 +1,11 @@
-Bundler.require(:development)
+require 'bundler/setup'
 
-if RUBY_VERSION > "1.9"
-  if ENV['TRAVIS']
-    require 'coveralls'
-    Coveralls.wear!
-  else
-    require 'simplecov'
-    SimpleCov.start
-  end
+if ENV['TRAVIS']
+  require 'coveralls'
+  Coveralls.wear!
+else
+  require 'simplecov'
+  SimpleCov.start
 end
 
 require 'rdiff_simple'

@@ -5,48 +5,55 @@ describe RdiffSimple::RdiffBackup do
   let(:destination) { '~/Test' }
   let(:status) { double('status', exitstatus: Random.rand(100)) }
   let(:open3) { double('open3') }
+  let(:file) { StringIO.new }
+  let(:rdiff) do
+    RdiffSimple::RdiffBackup.new do |r|
+      r.logger = Logger.new file
+      r.open3 = open3
+    end
+  end
 
-  subject(:backup) { RdiffSimple::RdiffBackup.new(double('logger'), open3) }
+  before do
+    open3.stub(:capture3).with(args) { ['output', 'error', status] }
+  end
+
+  shared_examples "a command" do
+    before { subject }
+
+    it 'and returns the exit code' do
+      expect(subject).to eq status.exitstatus
+    end
+
+    it 'and logs the output' do
+      expect(file.string).to match /output/
+    end
+
+    it 'and logs any errors' do
+      expect(file.string).to match /error/
+    end
+  end
 
   describe '#backup' do
     let(:args) { "rdiff-backup --exclude-other-filesystems --verbosity 5 --exclude *.png #{source} #{destination}" }
 
-    subject { backup.backup(source, destination, :exclude_other_filesystems, verbosity: 5, exclude: '*.png') }
+    subject { rdiff.backup(source, destination, :exclude_other_filesystems, verbosity: 5, exclude: '*.png') }
 
-    before do
-      expect(open3).to receive(:capture3).with(args) { ['', '', status] }
-    end
-
-    it 'returns the exit code' do
-      expect(subject).to eq status.exitstatus
-    end
+    it_behaves_like "a command"
   end
 
   describe '#verify' do
     let(:args) { "rdiff-backup --verify-at-time now #{destination}" }
 
-    subject { backup.verify destination }
+    subject { rdiff.verify destination }
 
-    before do
-      expect(open3).to receive(:capture3).with(args) { ['', '', status] }
-    end
-
-    it 'returns the exit code' do
-      expect(subject).to eq status.exitstatus
-    end
+    it_behaves_like "a command"
   end
 
   describe '#verify_at_time' do
     let(:args) { "rdiff-backup --verify-at-time now #{destination}" }
 
-    subject { backup.verify_at_time destination, 'now' }
+    subject { rdiff.verify_at_time destination, 'now' }
 
-    before do
-      expect(open3).to receive(:capture3).with(args) { ['', '', status] }
-    end
-
-    it 'returns the exit code' do
-      expect(subject).to eq status.exitstatus
-    end
+    it_behaves_like "a command"
   end
 end
