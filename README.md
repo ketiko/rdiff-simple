@@ -25,8 +25,8 @@ In your file:
 ```ruby
   require 'rdiff_simple'
 
-  backup = RdiffSimple::RdiffBackup.new
-  backup.execute('/source', '/destination', :print_statistics, exclude: '/source/private')
+  rdiff = RdiffSimple::RdiffBackup.new
+  rdiff.backup('/source', '/destination', :print_statistics, exclude: '/source/private')
 ```
 
 ## Usage
