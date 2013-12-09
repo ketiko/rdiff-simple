@@ -1,3 +1,6 @@
+require 'active_support/core_ext/array/extract_options'
+require 'active_support/core_ext/string/inflections'
+
 module RdiffSimple
   class OptionsParser
     def self.parse(*args)

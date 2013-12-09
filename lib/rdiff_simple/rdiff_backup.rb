@@ -1,3 +1,7 @@
+require 'logger'
+require 'open3'
+require_relative 'options_parser'
+
 module RdiffSimple
   class RdiffBackup
     attr_accessor :logger
