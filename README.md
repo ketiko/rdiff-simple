@@ -18,7 +18,7 @@ A simple wrapper around rdiff-backup
 $ gem install rdiff-simple
 ```
 
-## Quick Start
+## Usage
 
 In your file:
 
@@ -27,25 +27,11 @@ In your file:
 
   rdiff = RdiffSimple::RdiffBackup.new
   rdiff.backup('/source', '/destination', :print_statistics, exclude: '/source/private')
+  rdiff.verify('/destination')
 ```
-
-## Usage
-
-Arguments Order is:
-
-- `source`
-- `destination`
-- `flag options like --exclude-other-filesystems`
-- `hash arguments like --exclude /usr/bin`
-
-All multi-word symbols should be converted to underscores: `--exclude-other-filesystems` becomes `:exclude_other_filesystems`.
-
-The `execute` method will return the exit code from rdiff-backup.  In order to get the output from rdiff-backup pass in a [`Logger`][logger] to [`RdiffBackup.new`][new].
 
 ## License
 
 Released under the MIT License.  See the [LICENSE][] file for further details.
 
 [license]: LICENSE.txt
-[logger]: http://www.ruby-doc.org/stdlib-2.0.0/libdoc/logger/rdoc/Logger.html
-[new]: http://rubydoc.info/github/ketiko/rdiff-simple/master/RdiffSimple/RdiffBackup#initialize-instance_method
