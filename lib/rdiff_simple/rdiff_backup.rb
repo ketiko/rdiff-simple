@@ -27,6 +27,8 @@ module RdiffSimple
 
     private
     def execute(command)
+      logger.debug "Calling `rdiff-backup #{command}`"
+
       output, error, result = Open3.capture3 "rdiff-backup #{command}"
 
       logger.info output unless output.empty?
